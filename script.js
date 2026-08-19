@@ -28,8 +28,18 @@ document.addEventListener('contextmenu', function(e) {
   }
 });
 
-function esVideo(url) {
+function esVideo(url, tipo) {
+  if (tipo === 'video') return true;
   return extensionesVideo.some(ext => url.toLowerCase().includes(ext));
+}
+
+// Resuelve si la URL es remota o local
+function obtenerUrlCompleta(url, rutaCarpeta) {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  return `${rutaCarpeta}${url}`;
 }
 
 // Carga de metadatos desde fotos.json
@@ -41,8 +51,10 @@ fetch(rutaJson)
   .then(data => {
     let listaArchivos = [];
 
-    // Manejo flexible: acepta tanto objeto key-value como array de objetos
-    if (Array.isArray(data)) {
+    // Manejo flexible: soporta la clave 'items', arrays simples u objetos key-value
+    if (data.items && Array.isArray(data.items)) {
+      listaArchivos = data.items;
+    } else if (Array.isArray(data)) {
       listaArchivos = data.map(item => typeof item === 'string' ? { url: item } : item);
     } else {
       listaArchivos = Object.keys(data).map(nombreArchivo => ({
@@ -54,13 +66,17 @@ fetch(rutaJson)
     listaArchivos.forEach(item => {
       if (item.visible === false) return; // Omitir ocultos
 
-      const urlRelativa = item.url;
-      const urlCompleta = `${rutaCarpeta}${urlRelativa}`;
-      const titulo = item.title || item.titulo || '';
+      const urlOrigen = item.url || item.file;
+      if (!urlOrigen) return;
+
+      const urlCompleta = obtenerUrlCompleta(urlOrigen, rutaCarpeta);
+      const titulo = item.title || item.titulo || item.file || '';
       const ubicacion = item.location || item.ubicacion || '';
       const fecha = item.date || item.fecha || '';
       const descripcion = item.description || item.descripcion || '';
-      const poster = item.poster ? `${rutaCarpeta}${item.poster}` : '';
+      const poster = item.poster ? obtenerUrlCompleta(item.poster, rutaCarpeta) : '';
+
+      const esVid = esVideo(urlOrigen, item.type);
 
       const anchor = document.createElement('a');
       anchor.href = '#';
@@ -73,9 +89,9 @@ fetch(rutaJson)
       anchor.dataset.ubicacion = ubicacion;
       anchor.dataset.fecha = fecha;
       anchor.dataset.descripcion = descripcion;
-      anchor.dataset.esVideo = esVideo(urlRelativa);
+      anchor.dataset.esVideo = esVid;
 
-      if (esVideo(urlRelativa)) {
+      if (esVid) {
         if (poster) {
           const img = document.createElement('img');
           img.src = poster;
@@ -147,7 +163,6 @@ function inicializarEventos() {
         modalImg.style.display = 'block';
       }
       
-      // Inyección de metadatos en la Propuesta 3
       elemTitulo.textContent = this.dataset.titulo;
       elemUbicacion.textContent = this.dataset.ubicacion ? `📍 ${this.dataset.ubicacion}` : '';
       elemFecha.textContent = this.dataset.fecha ? `📅 ${this.dataset.fecha}` : '';
