@@ -1,10 +1,44 @@
+// --- CONFIGURACIÓN Y VARIABLES GLOBALES ---
+const urlParams = new URLSearchParams(window.location.search);
+const galeriaActual = urlParams.get('galeria') || 'brujas-2025';
+
+// Definir ruta según el parámetro URL
+const rutaJson = `./${galeriaActual}/fotos.json`;
+const rutaCarpeta = `./${galeriaActual}/`;
+
+const contenedorGaleria = document.getElementById('galeria');
+const modal = document.querySelector('.modal');
+const modalImg = document.getElementById('modal-img');
+const modalVideo = document.getElementById('modal-video');
+
+const infoUbicacion = document.getElementById('info-ubicacion');
+const infoFecha = document.getElementById('info-fecha');
+const infoTitulo = document.getElementById('info-titulo');
+const infoDescripcion = document.getElementById('info-descripcion');
+
+// Clases CSS para la grilla Masonry estilo mosaico
+const clasesTamano = ['', '', 'span-col-2', 'span-row-2', 'span-big'];
+
+// --- FUNCIONES AUXILIARES ---
+function esVideo(url, tipo) {
+  if (tipo === 'video') return true;
+  return /\.(mp4|webm|ogg|mov)$/i.test(url);
+}
+
+function obtenerUrlCompleta(url, carpeta) {
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  return carpeta + url;
+}
+
+// --- CARGA DE DATOS (FETCH) ---
 fetch(rutaJson)
   .then(res => {
     if (!res.ok) throw new Error("Galería no encontrada");
     return res.json();
   })
   .then(data => {
-    // Soporta tanto array directo [...] como wrapper con { items: [...] } u objetos
     let listaArchivos = [];
     if (Array.isArray(data)) {
       listaArchivos = data;
@@ -75,3 +109,46 @@ fetch(rutaJson)
     console.error("Error al cargar fotos.json:", err);
     contenedorGaleria.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; margin-top: 2rem;">No se pudo cargar la galería "${galeriaActual}".</p>`;
   });
+
+// --- MANEJO DEL MODAL ---
+function inicializarEventos() {
+  contenedorGaleria.querySelectorAll('a').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const url = anchor.dataset.url;
+      const esVid = anchor.dataset.esVideo === 'true';
+
+      infoUbicacion.textContent = anchor.dataset.ubicacion;
+      infoFecha.textContent = anchor.dataset.fecha;
+      infoTitulo.textContent = anchor.dataset.titulo;
+      infoDescripcion.textContent = anchor.dataset.descripcion;
+
+      if (esVid) {
+        modalImg.style.display = 'none';
+        modalImg.src = '';
+        modalVideo.src = url;
+        modalVideo.style.display = 'block';
+        modalVideo.play();
+      } else {
+        modalVideo.pause();
+        modalVideo.style.display = 'none';
+        modalVideo.src = '';
+        modalImg.src = url;
+        modalImg.style.display = 'block';
+      }
+
+      modal.classList.add('overlay');
+    });
+  });
+}
+
+// Cerrar modal al hacer clic en el fondo
+modal.addEventListener('click', (e) => {
+  if (e.target === modal || e.target === modalImg) {
+    modal.classList.remove('overlay');
+    modalVideo.pause();
+    modalVideo.src = '';
+    modalImg.src = '';
+  }
+});
