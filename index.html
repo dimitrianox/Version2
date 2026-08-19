@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Camufla la barra de direcciones con el color del fondo azul marino -->
+  <meta name="theme-color" content="#0F172A">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- Oculta la marca de agua evitando enviar el origen del sitio -->
+  <meta name="referrer" content="no-referrer">
+  <title>Galería de Fotos y Videos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Barra de navegación de galerías -->
+  <header class="main-header">
+    <h1 class="logo-title">Galería</h1>
+    <nav class="nav-galerias">
+      <a href="?galeria=londres">Londres</a>
+      <a href="?galeria=paris">París</a>
+      <a href="?galeria=italia">Italia</a>
+    </nav>
+  </header>
+
+  <main id="galeria"></main>
+
+  <!-- Modal con diseño divido estilo revista (Propuesta 3) -->
+  <div class="modal">
+    <!-- Encabezado Superior -->
+    <div class="editorial-header">
+      <span id="info-ubicacion"></span>
+      <span id="info-fecha"></span>
+    </div>
+
+    <div class="modal-content">
+      <!-- Para fotos -->
+      <img src="" alt="" id="modal-img" style="display: none;" referrerpolicy="no-referrer" />
+      
+      <!-- Para videos -->
+      <video id="modal-video" controls style="display: none;"></video>
+    </div>
+
+    <!-- Pie Inferior -->
+    <div class="editorial-footer">
+      <h3 id="info-titulo"></h3>
+      <p id="info-descripcion"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
