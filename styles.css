@@ -107,7 +107,7 @@ main a:hover video {
   filter: brightness(1);
 }
 
-/* MODAL OVERLAY */
+/* MODAL OVERLAY (LIENZO FIJO DE PANTALLA COMPLETA) */
 div.modal {
   position: fixed;
   top: 0;
@@ -115,7 +115,6 @@ div.modal {
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: rgba(15, 23, 42, 0.95);
@@ -124,7 +123,7 @@ div.modal {
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
-  padding: 16px;
+  padding: 0;
   overflow: hidden;
   touch-action: none;
 }
@@ -134,28 +133,31 @@ div.modal.overlay {
   visibility: visible;
 }
 
-/* CONTENEDOR FLEXIBLE VERTICAL */
+/* CONTENEDOR CENTRAL */
 .modal-content {
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: min-content;
-  max-width: 90vw;
-  max-height: calc(100vh - 32px);
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 60px 16px;
   z-index: 5;
 }
 
-/* ENCABEZADO SUPERIOR */
+/* ENCABEZADO SUPERIOR FIJO (CAJA VERDE SUPERIOR) */
 .editorial-header {
-  width: 100%;
-  padding-bottom: 8px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 500px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   pointer-events: none;
-  flex-shrink: 0;
+  z-index: 10;
 }
 
 #info-ubicacion {
@@ -172,10 +174,10 @@ div.modal.overlay {
   color: #94a3b8;
 }
 
-/* MEDIOS Y MULTIMEDIA EN MODAL */
+/* MEDIOS Y MULTIMEDIA CENTRADOS */
 div.modal img,
 div.modal video {
-  max-height: calc(100vh - 110px);
+  max-height: calc(100vh - 140px);
   max-width: 90vw;
   width: auto;
   height: auto;
@@ -183,20 +185,23 @@ div.modal video {
   border-radius: 4px;
   border: 1px solid rgba(212, 175, 55, 0.4);
   box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
-  flex-shrink: 1;
 }
 
 div.modal img {
   cursor: pointer;
 }
 
-/* PIE INFERIOR DE TEXTO */
+/* PIE INFERIOR FIJO (CAJA VERDE INFERIOR) */
 .editorial-footer {
-  width: 100%;
-  padding-top: 8px;
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 500px;
   text-align: center;
   pointer-events: none;
-  flex-shrink: 0;
+  z-index: 10;
 }
 
 #info-titulo {
