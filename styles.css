@@ -238,3 +238,22 @@ div.modal img {
     font-size: 0.85rem;
   }
 }
+
+/* Bloqueo del menú contextual, selección y llamada en iOS / WebKit */
+img, video, a {
+  -webkit-touch-callout: none !important; /* Desactiva el menú contextual de iOS */
+  -webkit-user-select: none !important;   /* Evita la selección de texto e imágenes */
+  user-select: none !important;
+  -webkit-user-drag: none !important;     /* Evita arrastrar la imagen */
+}
+
+/* Evita la vista previa flotante de enlaces e imágenes en iOS */
+main a, .modal img, .modal video {
+  -webkit-touch-callout: none !important;
+}
+
+/* Asegura que los toques respondan de inmediato sin retraso de long press */
+div.modal img {
+  pointer-events: auto;
+  touch-action: manipulation;
+}
