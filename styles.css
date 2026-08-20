@@ -173,6 +173,25 @@ div.modal.overlay {
   width: 100%;
 }
 
+/* OCULTAR LA DESCRIPCIÓN */
+#info-descripcion {
+  display: none; /* Deshabilita la visualización del texto */
+}
+
+/* AJUSTE DE ALTURA RECALCULADO SIN DESCRIPCIÓN */
+div.modal img,
+div.modal video {
+  max-height: calc(100vh - 100px); /* Gana espacio al no existir el texto de abajo */
+  max-width: 90vw;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+
 /* IMAGEN Y VIDEO: AJUSTE DINÁMICO PARA EVITAR SCROLL */
 div.modal img,
 div.modal video {
