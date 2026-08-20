@@ -109,7 +109,7 @@ main a:hover video {
   filter: brightness(1);
 }
 
-/* MODAL OVERLAY CENTRADO MODERADO */
+/* MODAL OVERLAY CON SCROLL BLOQUEADO */
 div.modal {
   position: fixed;
   top: 0;
@@ -126,7 +126,9 @@ div.modal {
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
-  padding: 10px 16px;
+  padding: 12px 16px;
+  overflow: hidden; /* Bloquea el scroll del modal */
+  touch-action: none; /* Desactiva el gesto de arrastre vertical */
 }
 
 div.modal.overlay {
@@ -134,11 +136,11 @@ div.modal.overlay {
   visibility: visible;
 }
 
-/* ENCABEZADO SUPERIOR CON MARGEN EQUILIBRADO */
+/* ENCABEZADO SUPERIOR */
 .editorial-header {
   width: 100%;
   max-width: 90vw;
-  padding: 0 0 30px 0; /* Separación cómoda con la imagen */
+  padding: 0 0 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -171,10 +173,10 @@ div.modal.overlay {
   width: 100%;
 }
 
-/* IMAGEN Y VIDEO EN PUNTO MEDIO (68vh) */
+/* IMAGEN Y VIDEO: AJUSTE DINÁMICO PARA EVITAR SCROLL */
 div.modal img,
 div.modal video {
-  max-height: 68vh; /* Balance exacto entre el 60vh previo y el 75vh */
+  max-height: calc(100vh - 160px); /* Resta el espacio real de textos y paddings */
   max-width: 90vw;
   width: auto;
   height: auto;
@@ -188,11 +190,11 @@ div.modal img {
   cursor: pointer;
 }
 
-/* PIE INFERIOR CON MARGEN EQUILIBRADO */
+/* PIE INFERIOR */
 .editorial-footer {
   width: 100%;
   max-width: 90vw;
-  padding: 14px 0 0 0; /* Separación cómoda con la imagen */
+  padding: 10px 0 0 0;
   text-align: center;
   pointer-events: none;
   z-index: 10;
