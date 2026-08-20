@@ -180,7 +180,13 @@ function inicializarEventos() {
   });
 }
 
-// Cerrar modal al hacer clic en el fondo
+// Tap / Clic directo en la imagen ampliada para cerrar el modal
+modalImg.addEventListener('click', (e) => {
+  e.stopPropagation();
+  cerrarModal();
+});
+
+// Cerrar modal al hacer clic en el fondo oscuro
 modal.addEventListener('click', (e) => {
   if (e.target === modal || e.target.classList.contains('modal-media-wrapper')) {
     cerrarModal();
