@@ -107,13 +107,13 @@ main a:hover video {
   filter: brightness(1);
 }
 
-/* MODAL OVERLAY (LIENZO FIJO DE PANTALLA COMPLETA) */
+/* MODAL OVERLAY CON UNIDADES DINÁMICAS DE PANTALLA */
 div.modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh; /* Se adapta exacto a la altura real disponible del móvil */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,7 +123,7 @@ div.modal {
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
-  padding: 0;
+  padding: 12px;
   overflow: hidden;
   touch-action: none;
 }
@@ -133,26 +133,26 @@ div.modal.overlay {
   visibility: visible;
 }
 
-/* CONTENEDOR CENTRAL */
+/* ESTRUCTURA GRID: MANTIENE HEADER Y FOOTER DENTRO DE LA PANTALLA */
 .modal-content {
   position: relative;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-  padding: 60px 16px;
+  justify-items: center;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  max-height: calc(100dvh - 24px);
   z-index: 5;
 }
 
-/* ENCABEZADO SUPERIOR FIJO (CAJA VERDE SUPERIOR) */
+/* ENCABEZADO SUPERIOR */
 .editorial-header {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90vw;
-  max-width: 500px;
+  position: static;
+  transform: none;
+  width: 100%;
+  padding: 8px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -177,8 +177,8 @@ div.modal.overlay {
 /* MEDIOS Y MULTIMEDIA CENTRADOS */
 div.modal img,
 div.modal video {
-  max-height: calc(100vh - 140px);
-  max-width: 90vw;
+  max-height: 100%; /* La imagen solo toma el espacio libre central */
+  max-width: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -191,14 +191,12 @@ div.modal img {
   cursor: pointer;
 }
 
-/* PIE INFERIOR FIJO (CAJA VERDE INFERIOR) */
+/* PIE INFERIOR */
 .editorial-footer {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90vw;
-  max-width: 500px;
+  position: static;
+  transform: none;
+  width: 100%;
+  padding: 8px 0;
   text-align: center;
   pointer-events: none;
   z-index: 10;
@@ -206,7 +204,7 @@ div.modal img {
 
 #info-titulo {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #f8fafc;
   letter-spacing: 0.2px;
@@ -217,4 +215,23 @@ div.modal img {
 
 #info-descripcion {
   display: none;
+}
+
+/* AJUSTES RESPONSIVOS PARA MÓVILES */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 92vw;
+  }
+  
+  #info-ubicacion {
+    font-size: 0.75rem;
+  }
+
+  #info-fecha {
+    font-size: 0.7rem;
+  }
+
+  #info-titulo {
+    font-size: 0.9rem;
+  }
 }
