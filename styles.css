@@ -1,159 +1,239 @@
-:root {
-  /* Paleta Ultra-Premium */
-  --bg-alabaster: #FAFAFA;
-  --text-charcoal: #1A1A1A;
-  --text-caption: #555555;
-  
-  /* Tipografía */
-  --font-serif: 'Cinzel', serif;
-  --font-sans: 'Montserrat', sans-serif;
-  
-  /* Animaciones */
-  --transition-luxury: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-}
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap");
 
-/* Reset Básico */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-  background-color: var(--bg-alabaster);
-  color: var(--text-charcoal);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* --- HERO CINEMATIC --- */
-.hero {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  /* Opcional: Oscurece o desatura un poco la imagen de fondo si tiene demasiada luz */
-  filter: brightness(0.9); 
-}
-
-.hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(6rem, 15vw, 15rem);
-  font-weight: 400;
-  color: #FFFFFF;
-  mix-blend-mode: overlay; /* Crea el efecto de mezcla con la foto de fondo */
-  letter-spacing: 0.05em;
-  z-index: 1;
-}
-
-/* Indicador de Scroll */
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  z-index: 1;
-  animation: pulseFade 3s infinite ease-in-out;
+  color: hsl(0, 0%, 100%);
+  background: #0F172A;
+  font-family: 'Roboto', sans-serif;
 }
 
-.scroll-text {
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #FFFFFF;
+/* ENCABEZADO Y NAVEGACIÓN */
+.main-header {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem 0.5rem 1rem;
 }
 
-.scroll-line {
-  width: 1px;
-  height: 60px;
-  background-color: #FFFFFF;
+.logo-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #d4af37;
+  letter-spacing: 1px;
 }
 
-@keyframes pulseFade {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+.nav-galerias a {
+  color: #94a3b8;
+  text-decoration: none;
+  margin-left: 12px;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
 }
 
-/* --- GALERÍA ESTILO MUSEO --- */
-.gallery-container {
-  /* Whitespace Extremo: padding masivo arriba y abajo, y a los lados */
-  padding: 25vh 10vw; 
+.nav-galerias a:hover {
+  color: #f8fafc;
+}
+
+/* GRILLA MASONRY DE LA GALERÍA */
+main {
+  max-width: 800px;
+  width: 90vw;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 15vh 4vw; /* Gap masivo entre elementos */
-  max-width: 2000px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-rows: 150px;
+  gap: 10px;
+  justify-content: center;
+  grid-auto-flow: dense;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
 }
 
-.gallery-item {
+main a {
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.15);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+main a:hover,
+main a:focus {
+  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+main a.span-col-2 { grid-column: span 2; }
+main a.span-row-2 { grid-row: span 2; }
+main a.span-big { grid-column: span 2; grid-row: span 2; }
+main a:focus { outline: none; }
+
+main img,
+main video {
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.6);
+  transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+main a:focus img,
+main a:hover img,
+main a:focus video,
+main a:hover video {
+  transform: scale(1.1);
+  filter: brightness(1);
+}
+
+/* MODAL OVERLAY CON ALTO DINÁMICO */
+div.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  padding: 12px;
+  overflow: hidden;
+  /* Habilita pinch-to-zoom y gestos nativos */
+  touch-action: manipulation;
+}
+
+div.modal.overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ESTRUCTURA COLUMNA */
+.modal-content {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* Aparece suavemente al hacer scroll */
-.gallery-item.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Clases de Layout Asimétrico (Masonry suelto) */
-.size-large { grid-column: 2 / 11; }
-.size-small.offset-right { grid-column: 8 / 12; }
-.size-medium.offset-left { grid-column: 2 / 7; }
-
-/* Contenedor de la Imagen y Hover de Lujo */
-.image-wrapper {
-  overflow: hidden; /* Mantiene el zoom contenido */
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  background-color: #EEEEEE; /* Placeholder antes de que cargue la foto */
+  max-width: 600px;
+  height: 100%;
+  max-height: calc(100dvh - 24px);
+  z-index: 5;
 }
 
-.image-wrapper img {
+/* ENCABEZADO SUPERIOR */
+.editorial-header {
   width: 100%;
-  height: auto;
-  display: block;
-  transform: scale(1.001); /* Previene artefactos de renderizado en los bordes */
-  transition: transform var(--transition-luxury);
-  will-change: transform; /* Optimización del navegador */
+  padding: 8px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  flex-shrink: 0;
 }
 
-.gallery-item:hover .image-wrapper img {
-  transform: scale(1.03); /* Ligero zoom in hiper-suave */
-}
-
-/* Placa de Museo (Caption) */
-figcaption {
-  font-family: var(--font-sans);
-  font-size: 10px;
+#info-ubicacion {
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em; /* Tracking amplio */
-  color: var(--text-caption);
+  letter-spacing: 1.5px;
+  color: #d4af37;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 65%;
 }
 
-/* Responsividad básica para móviles */
+#info-fecha {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+/* CONTENEDOR CENTRAL MULTIMEDIA */
+.modal-media-wrapper {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  padding: 8px 0;
+}
+
+div.modal img,
+div.modal video {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+div.modal img {
+  cursor: pointer;
+}
+
+/* PIE INFERIOR */
+.editorial-footer {
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#info-titulo {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #f8fafc;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#info-descripcion {
+  display: none;
+}
+
+/* AJUSTES RESPONSIVOS PARA MÓVILES Y TABLETS */
 @media (max-width: 768px) {
-  .gallery-container {
-    display: flex;
-    flex-direction: column;
-    padding: 15vh 5vw;
-    gap: 15vh;
+  .modal-content {
+    max-width: 95vw;
+  }
+  
+  #info-ubicacion {
+    font-size: 0.75rem;
+  }
+
+  #info-fecha {
+    font-size: 0.7rem;
+  }
+
+  #info-titulo {
+    font-size: 0.85rem;
   }
 }
