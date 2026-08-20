@@ -78,17 +78,6 @@ main a.span-row-2 { grid-row: span 2; }
 main a.span-big { grid-column: span 2; grid-row: span 2; }
 main a:focus { outline: none; }
 
-/* DESACTIVAR MENÚ CONTEXTUAL Y SELECCIÓN */
-img, video {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
 main img,
 main video {
   object-fit: cover;
@@ -107,7 +96,7 @@ main a:hover video {
   filter: brightness(1);
 }
 
-/* MODAL OVERLAY CON ALTO DINÁMICO (100dvh) */
+/* MODAL OVERLAY CON ALTO DINÁMICO */
 div.modal {
   position: fixed;
   top: 0;
@@ -125,7 +114,8 @@ div.modal {
   z-index: 1000;
   padding: 12px;
   overflow: hidden;
-  touch-action: none;
+  /* Habilita pinch-to-zoom y gestos nativos */
+  touch-action: manipulation;
 }
 
 div.modal.overlay {
@@ -133,7 +123,7 @@ div.modal.overlay {
   visibility: visible;
 }
 
-/* DISPOSICIÓN EN COLUMNA VERTICAL OBLIGATORIA */
+/* ESTRUCTURA COLUMNA */
 .modal-content {
   position: relative;
   display: flex;
@@ -147,7 +137,7 @@ div.modal.overlay {
   z-index: 5;
 }
 
-/* ENCABEZADO SUPERIOR FIJO DENTRO DEL CONTENEDOR */
+/* ENCABEZADO SUPERIOR */
 .editorial-header {
   width: 100%;
   padding: 8px 0;
@@ -185,7 +175,7 @@ div.modal.overlay {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 0; /* Previene el desbordamiento de Flexbox */
+  min-height: 0;
   padding: 8px 0;
 }
 
@@ -205,7 +195,7 @@ div.modal img {
   cursor: pointer;
 }
 
-/* PIE INFERIOR FIJO DENTRO DEL CONTENEDOR */
+/* PIE INFERIOR */
 .editorial-footer {
   width: 100%;
   padding: 8px 0;
@@ -229,7 +219,7 @@ div.modal img {
   display: none;
 }
 
-/* AJUSTES RESPONSIVOS PARA MÓVILES */
+/* AJUSTES RESPONSIVOS PARA MÓVILES Y TABLETS */
 @media (max-width: 768px) {
   .modal-content {
     max-width: 95vw;

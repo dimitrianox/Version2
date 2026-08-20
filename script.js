@@ -17,7 +17,7 @@ const infoDescripcion = document.getElementById('info-descripcion');
 
 const clasesTamano = ['', '', 'span-col-2', 'span-row-2', 'span-big'];
 
-// --- BLOQUEO GENERAL DEL MENÚ CONTEXTUAL ---
+// --- BLOQUEO EXCLUSIVO DEL MENÚ CONTEXTUAL (LONG PRESS) ---
 document.addEventListener('contextmenu', function(e) {
   if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO' || e.target.closest('.modal')) {
     e.preventDefault();
@@ -37,7 +37,6 @@ function obtenerUrlCompleta(url, carpeta) {
   return carpeta + url;
 }
 
-// Formatear la fecha a DD/MM/AAAA
 function formatearFecha(fechaOriginal) {
   if (!fechaOriginal) return '';
   const parteFecha = fechaOriginal.split(' ')[0];
@@ -109,9 +108,10 @@ fetch(rutaJson)
           anchor.appendChild(img);
         } else {
           const video = document.createElement('video');
-          video.src = urlCompleta;
+          // #t=0.1 fuerza a Safari/iOS a cargar el primer frame como miniatura
+          video.src = `${urlCompleta}#t=0.1`;
           video.muted = true;
-          video.preload = "metadata";
+          video.preload = "auto";
           video.playsInline = true;
           video.setAttribute('referrerpolicy', 'no-referrer');
           anchor.appendChild(video);
@@ -168,9 +168,9 @@ function inicializarEventos() {
   });
 }
 
-// Cerrar modal al hacer clic en el fondo o en la imagen
+// Cerrar modal al hacer clic en el fondo
 modal.addEventListener('click', (e) => {
-  if (e.target === modal || e.target === modalImg || e.target.classList.contains('modal-media-wrapper')) {
+  if (e.target === modal || e.target.classList.contains('modal-media-wrapper')) {
     cerrarModal();
   }
 });
