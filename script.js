@@ -170,7 +170,7 @@ function inicializarEventos() {
 
 // Cerrar modal al hacer clic en el fondo o en la imagen
 modal.addEventListener('click', (e) => {
-  if (e.target === modal || e.target === modalImg) {
+  if (e.target === modal || e.target === modalImg || e.target.classList.contains('modal-media-wrapper')) {
     cerrarModal();
   }
 });

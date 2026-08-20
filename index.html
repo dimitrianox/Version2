@@ -27,26 +27,26 @@
 
   <main id="galeria"></main>
 
-  <!-- Modal con diseño dividido -->
+  <!-- Modal con contenedor central unificado -->
   <div class="modal">
-    <!-- Encabezado Superior -->
-    <div class="editorial-header">
-      <span id="info-ubicacion"></span>
-      <span id="info-fecha"></span>
-    </div>
-
     <div class="modal-content">
-      <!-- Para fotos -->
-      <img src="" alt="" id="modal-img" style="display: none;" referrerpolicy="no-referrer" />
-      
-      <!-- Para videos -->
-      <video id="modal-video" controls style="display: none;" playsinline></video>
-    </div>
+      <!-- Encabezado Superior -->
+      <div class="editorial-header">
+        <span id="info-ubicacion"></span>
+        <span id="info-fecha"></span>
+      </div>
 
-    <!-- Pie Inferior -->
-    <div class="editorial-footer">
-      <h3 id="info-titulo"></h3>
-      <p id="info-descripcion"></p>
+      <!-- Zona Multimedia -->
+      <div class="modal-media-wrapper">
+        <img src="" alt="" id="modal-img" style="display: none;" referrerpolicy="no-referrer" />
+        <video id="modal-video" controls style="display: none;" playsinline></video>
+      </div>
+
+      <!-- Pie Inferior -->
+      <div class="editorial-footer">
+        <h3 id="info-titulo"></h3>
+        <p id="info-descripcion"></p>
+      </div>
     </div>
   </div>
 
