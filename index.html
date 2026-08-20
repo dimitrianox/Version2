@@ -3,52 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brujas | Editorial Gallery</title>
   
-  <!-- Camufla la barra de direcciones con el color del fondo azul marino -->
-  <meta name="theme-color" content="#0F172A">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   
-  <!-- Oculta la marca de agua evitando enviar el origen del sitio -->
-  <meta name="referrer" content="no-referrer">
-  <title>Galería de Fotos y Videos</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Barra de navegación de galerías -->
-  <header class="main-header">
-    <h1 class="logo-title">Galería</h1>
-    <nav class="nav-galerias">
-      <a href="?galeria=londres">Londres</a>
-      <a href="?galeria=paris">París</a>
-      <a href="?galeria=italia">Italia</a>
-    </nav>
+  <!-- Hero Cinematic -->
+  <header class="hero">
+    <!-- Reemplaza con tu fotografía más impactante de Brujas -->
+    <div class="hero-bg" style="background-image: url('ruta-a-tu-foto-hero.jpg');"></div>
+    <h1 class="hero-title">BRUJAS</h1>
+    
+    <div class="scroll-indicator">
+      <span class="scroll-text">Descubrir</span>
+      <div class="scroll-line"></div>
+    </div>
   </header>
 
-  <main id="galeria"></main>
-
-  <!-- Modal con contenedor central unificado -->
-  <div class="modal">
-    <div class="modal-content">
-      <!-- Encabezado Superior -->
-      <div class="editorial-header">
-        <span id="info-ubicacion"></span>
-        <span id="info-fecha"></span>
+  <!-- Galería Estilo Museo -->
+  <main class="gallery-container">
+    
+    <!-- Foto Grande -->
+    <figure class="gallery-item size-large">
+      <div class="image-wrapper">
+        <img src="ruta-a-tu-foto-1.jpg" alt="Canales de Brujas">
       </div>
+      <figcaption>Los canales del centro histórico, Flandes.</figcaption>
+    </figure>
 
-      <!-- Zona Multimedia -->
-      <div class="modal-media-wrapper">
-        <img src="" alt="" id="modal-img" style="display: none;" referrerpolicy="no-referrer" />
-        <video id="modal-video" controls style="display: none;" playsinline></video>
+    <!-- Foto Pequeña Desfasada a la Derecha -->
+    <figure class="gallery-item size-small offset-right">
+      <div class="image-wrapper">
+        <img src="ruta-a-tu-foto-2.jpg" alt="Arquitectura gótica">
       </div>
+      <figcaption>Detalle arquitectónico, Plaza Burg.</figcaption>
+    </figure>
 
-      <!-- Pie Inferior -->
-      <div class="editorial-footer">
-        <h3 id="info-titulo"></h3>
-        <p id="info-descripcion"></p>
+    <!-- Foto Mediana Desfasada a la Izquierda -->
+    <figure class="gallery-item size-medium offset-left">
+      <div class="image-wrapper">
+        <img src="ruta-a-tu-foto-3.jpg" alt="Cisne en el Minnewater">
       </div>
-    </div>
-  </div>
+      <figcaption>El lago del amor (Minnewater).</figcaption>
+    </figure>
+
+    <!-- Añade más <figure> alternando las clases de tamaño y offset -->
+    
+  </main>
 
   <script src="script.js"></script>
 </body>
