@@ -2,7 +2,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const galeriaActual = urlParams.get('galeria') || 'brujas-2025';
 
-// Definir ruta según el parámetro URL
 const rutaJson = `./${galeriaActual}/fotos.json`;
 const rutaCarpeta = `./${galeriaActual}/`;
 
@@ -16,8 +15,14 @@ const infoFecha = document.getElementById('info-fecha');
 const infoTitulo = document.getElementById('info-titulo');
 const infoDescripcion = document.getElementById('info-descripcion');
 
-// Clases CSS para la grilla Masonry estilo mosaico
 const clasesTamano = ['', '', 'span-col-2', 'span-row-2', 'span-big'];
+
+// --- BLOQUEO GENERAL DEL MENÚ CONTEXTUAL ---
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO' || e.target.closest('.modal')) {
+    e.preventDefault();
+  }
+}, false);
 
 // --- FUNCIONES AUXILIARES ---
 function esVideo(url, tipo) {
@@ -30,6 +35,25 @@ function obtenerUrlCompleta(url, carpeta) {
     return url;
   }
   return carpeta + url;
+}
+
+// Formatear la fecha a DD/MM/AAAA
+function formatearFecha(fechaOriginal) {
+  if (!fechaOriginal) return '';
+  const parteFecha = fechaOriginal.split(' ')[0];
+  const partes = parteFecha.split(/[:\/-]/);
+  if (partes.length === 3) {
+    const [anio, mes, dia] = partes;
+    return `${dia}/${mes}/${anio}`;
+  }
+  return fechaOriginal;
+}
+
+function cerrarModal() {
+  modal.classList.remove('overlay');
+  modalVideo.pause();
+  modalVideo.src = '';
+  modalImg.src = '';
 }
 
 // --- CARGA DE DATOS (FETCH) ---
@@ -110,7 +134,7 @@ fetch(rutaJson)
     contenedorGaleria.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; margin-top: 2rem;">No se pudo cargar la galería "${galeriaActual}".</p>`;
   });
 
-// --- MANEJO DEL MODAL ---
+// --- MANEJO DEL MODAL Y EVENTOS ---
 function inicializarEventos() {
   contenedorGaleria.querySelectorAll('a').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
@@ -119,8 +143,9 @@ function inicializarEventos() {
       const url = anchor.dataset.url;
       const esVid = anchor.dataset.esVideo === 'true';
 
-      infoUbicacion.textContent = anchor.dataset.ubicacion;
-      infoFecha.textContent = anchor.dataset.fecha;
+      const ubicacionLimpia = anchor.dataset.ubicacion ? `📍 ${anchor.dataset.ubicacion}` : '';
+      infoUbicacion.textContent = ubicacionLimpia;
+      infoFecha.textContent = formatearFecha(anchor.dataset.fecha);
       infoTitulo.textContent = anchor.dataset.titulo;
       infoDescripcion.textContent = anchor.dataset.descripcion;
 
@@ -143,12 +168,22 @@ function inicializarEventos() {
   });
 }
 
-// Cerrar modal al hacer clic en el fondo
+// Cerrar modal al hacer clic en el fondo o en la imagen
 modal.addEventListener('click', (e) => {
   if (e.target === modal || e.target === modalImg) {
-    modal.classList.remove('overlay');
-    modalVideo.pause();
-    modalVideo.src = '';
-    modalImg.src = '';
+    cerrarModal();
   }
+});
+
+// --- DOBLE TAP PARA CERRAR EL VIDEO ---
+let ultimoToqueVideo = 0;
+modalVideo.addEventListener('touchend', function(e) {
+  const tiempoActual = new Date().getTime();
+  const diferenciaToques = tiempoActual - ultimoToqueVideo;
+
+  if (diferenciaToques < 300 && diferenciaToques > 0) {
+    e.preventDefault();
+    cerrarModal();
+  }
+  ultimoToqueVideo = tiempoActual;
 });

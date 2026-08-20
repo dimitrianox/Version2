@@ -23,7 +23,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 1rem;
+  padding: 1rem 1rem 0.5rem 1rem;
 }
 
 .logo-title {
@@ -55,6 +55,7 @@ main {
   gap: 10px;
   justify-content: center;
   grid-auto-flow: dense;
+  margin-top: 0.5rem;
   margin-bottom: 2rem;
 }
 
@@ -87,6 +88,7 @@ img, video {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-user-drag: none;
 }
 
 main img,
@@ -115,7 +117,8 @@ div.modal {
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(8px);
@@ -123,6 +126,7 @@ div.modal {
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
+  padding: 10px 0;
 }
 
 div.modal.overlay {
@@ -136,12 +140,16 @@ div.modal.overlay {
   justify-content: center;
   align-items: center;
   z-index: 5;
+  flex: 1;
+  width: 100%;
+  max-height: calc(100vh - 120px);
 }
 
+/* AJUSTE PARA EVITAR SCROLL EN LA IMAGEN Y VIDEO */
 div.modal img,
 div.modal video {
-  max-height: 75vh;
-  max-width: 85vw;
+  max-height: 60vh; /* Ajustado para dar espacio a header y footer sin scroll */
+  max-width: 90vw;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -154,14 +162,10 @@ div.modal img {
   cursor: pointer;
 }
 
-/* DISEÑO 3: ENCABEZADO SUPERIOR DIVIDIDO */
+/* ENCABEZADO SUPERIOR DIVIDIDO */
 .editorial-header {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  padding: 24px 20px 40px 20px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -183,14 +187,10 @@ div.modal img {
   color: #94a3b8;
 }
 
-/* DISEÑO 3: PIE INFERIOR DIVIDIDO */
+/* PIE INFERIOR DIVIDIDO */
 .editorial-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
-  padding: 40px 20px 24px 20px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+  padding: 10px 20px 15px 20px;
   text-align: center;
   pointer-events: none;
   z-index: 10;
@@ -205,7 +205,7 @@ div.modal img {
 }
 
 #info-descripcion {
-  margin: 6px auto 0 auto;
+  margin: 4px auto 0 auto;
   font-size: 0.82rem;
   color: #cbd5e1;
   max-width: 600px;
