@@ -138,7 +138,7 @@ div.modal.overlay {
 .editorial-header {
   width: 100%;
   max-width: 90vw;
-  padding: 0 0 19px 0; /* Separación cómoda con la imagen */
+  padding: 0 0 29px 0; /* Separación cómoda con la imagen */
   display: flex;
   justify-content: space-between;
   align-items: center;
