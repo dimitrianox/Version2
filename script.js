@@ -48,6 +48,16 @@ function formatearFecha(fechaOriginal) {
   return fechaOriginal;
 }
 
+// Algoritmo Fisher-Yates para ordenar al azar el array de fotos
+function mezclarArray(array) {
+  const copia = [...array];
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
 function cerrarModal() {
   modal.classList.remove('overlay');
   modalVideo.pause();
@@ -71,7 +81,10 @@ fetch(rutaJson)
       listaArchivos = Object.keys(data).map(k => ({ url: k, ...data[k] }));
     }
 
-    listaArchivos.forEach(item => {
+    // Mezclamos aleatoriamente la lista antes de generar el DOM
+    const listaAleatoria = mezclarArray(listaArchivos);
+
+    listaAleatoria.forEach(item => {
       if (item.visible === false) return;
 
       const urlOrigen = item.url || item.file;
@@ -108,7 +121,6 @@ fetch(rutaJson)
           anchor.appendChild(img);
         } else {
           const video = document.createElement('video');
-          // #t=0.1 fuerza a Safari/iOS a cargar el primer frame como miniatura
           video.src = `${urlCompleta}#t=0.1`;
           video.muted = true;
           video.preload = "auto";
