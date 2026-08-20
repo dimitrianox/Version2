@@ -109,7 +109,7 @@ main a:hover video {
   filter: brightness(1);
 }
 
-/* MODAL OVERLAY CENTRADO */
+/* MODAL OVERLAY */
 div.modal {
   position: fixed;
   top: 0;
@@ -118,7 +118,7 @@ div.modal {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centra el bloque verticalmente sin espacio sobrante */
+  justify-content: space-between;
   align-items: center;
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(8px);
@@ -126,7 +126,7 @@ div.modal {
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
-  padding: 12px 16px;
+  padding: 10px 0;
 }
 
 div.modal.overlay {
@@ -134,11 +134,38 @@ div.modal.overlay {
   visibility: visible;
 }
 
-/* ENCABEZADO SUPERIOR PEGADO A LA IMAGEN */
+.modal-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  flex: 1;
+  width: 100%;
+  max-height: calc(100vh - 120px);
+}
+
+/* AJUSTE PARA EVITAR SCROLL EN LA IMAGEN Y VIDEO */
+div.modal img,
+div.modal video {
+  max-height: 60vh; /* Ajustado para dar espacio a header y footer sin scroll */
+  max-width: 90vw;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+div.modal img {
+  cursor: pointer;
+}
+
+/* ENCABEZADO SUPERIOR DIVIDIDO */
 .editorial-header {
   width: 100%;
-  max-width: 90vw;
-  padding: 0 0 6px 0;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -160,39 +187,10 @@ div.modal.overlay {
   color: #94a3b8;
 }
 
-/* CONTENEDOR DE MEDIOS */
-.modal-content {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 5;
-  flex: 0 1 auto; /* Se amolda exactamente al tamaño del contenido */
-  width: 100%;
-}
-
-/* IMAGEN Y VIDEO AMPLIADOS */
-div.modal img,
-div.modal video {
-  max-height: 75vh; /* Ocupa hasta el 75% del alto para maximizar la foto */
-  max-width: 90vw;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 4px;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
-}
-
-div.modal img {
-  cursor: pointer;
-}
-
-/* PIE INFERIOR PEGADO A LA IMAGEN */
+/* PIE INFERIOR DIVIDIDO */
 .editorial-footer {
   width: 100%;
-  max-width: 90vw;
-  padding: 8px 0 0 0;
+  padding: 10px 20px 15px 20px;
   text-align: center;
   pointer-events: none;
   z-index: 10;
