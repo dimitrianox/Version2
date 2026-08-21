@@ -1,6 +1,6 @@
 // --- CONFIGURACIÓN Y VARIABLES GLOBALES ---
 const urlParams = new URLSearchParams(window.location.search);
-const galeriaActual = urlParams.get('galeria') || 'brujas-2025';
+const galeriaActual = urlParams.get('galeria') || 'francia';
 
 const rutaJson = `./${galeriaActual}/fotos.json`;
 const rutaCarpeta = `./${galeriaActual}/`;
@@ -123,7 +123,7 @@ fetch(rutaJson)
           const video = document.createElement('video');
           video.src = `${urlCompleta}#t=0.1`;
           video.muted = true;
-          video.preload = "auto";
+          video.preload = "metadata";
           video.playsInline = true;
           video.setAttribute('referrerpolicy', 'no-referrer');
           anchor.appendChild(video);
@@ -132,6 +132,7 @@ fetch(rutaJson)
         const img = document.createElement('img');
         img.src = urlCompleta;
         img.alt = titulo || 'Fotografía';
+        img.loading = 'lazy';
         img.setAttribute('referrerpolicy', 'no-referrer');
         anchor.appendChild(img);
       }
@@ -159,7 +160,15 @@ function inicializarEventos() {
       infoUbicacion.textContent = ubicacionLimpia;
       infoFecha.textContent = formatearFecha(anchor.dataset.fecha);
       infoTitulo.textContent = anchor.dataset.titulo;
-      infoDescripcion.textContent = anchor.dataset.descripcion;
+      
+      const desc = anchor.dataset.descripcion;
+      if (desc) {
+        infoDescripcion.textContent = desc;
+        infoDescripcion.style.display = 'block';
+      } else {
+        infoDescripcion.textContent = '';
+        infoDescripcion.style.display = 'none';
+      }
 
       if (esVid) {
         modalImg.style.display = 'none';
