@@ -4,49 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Camufla la barra de direcciones con el color del fondo azul marino -->
   <meta name="theme-color" content="#0F172A">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <!-- Oculta la marca de agua evitando enviar el origen del sitio -->
   <meta name="referrer" content="no-referrer">
-  <title>Galería de Fotos y Videos</title>
+  <title>Galería</title>
   
-  <!-- Preconexión de fuentes Google para Manrope -->
+  <!-- Fuentes Google: Cinzel (Encabezado Plata) y Manrope (Cuerpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Barra de navegación de galerías -->
+  <!-- Encabezado simplificado con título centrado -->
   <header class="main-header">
-    <h1 class="logo-title">Galería</h1>
-    <nav class="nav-galerias">
-      <a href="?galeria=francia">Francia</a>
-      <a href="?galeria=londres">Londres</a>
-      <a href="?galeria=brujas-2025">Brujas</a>
-    </nav>
+    <h1 id="titulo-pais" class="country-title"></h1>
   </header>
 
   <main id="galeria"></main>
 
-  <!-- Modal con contenedor central unificado -->
+  <!-- Modal con contenedor central -->
   <div class="modal">
     <div class="modal-content">
-      <!-- Encabezado Superior -->
       <div class="editorial-header">
         <span id="info-ubicacion"></span>
         <span id="info-fecha"></span>
       </div>
 
-      <!-- Zona Multimedia -->
       <div class="modal-media-wrapper">
         <img src="" alt="" id="modal-img" style="display: none;" referrerpolicy="no-referrer" />
         <video id="modal-video" controls style="display: none;" playsinline></video>
       </div>
 
-      <!-- Pie Inferior -->
       <div class="editorial-footer">
         <h3 id="info-titulo"></h3>
         <p id="info-descripcion"></p>

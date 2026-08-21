@@ -5,6 +5,7 @@ const galeriaActual = urlParams.get('galeria') || 'francia';
 const rutaJson = `./${galeriaActual}/fotos.json`;
 const rutaCarpeta = `./${galeriaActual}/`;
 
+const tituloPais = document.getElementById('titulo-pais');
 const contenedorGaleria = document.getElementById('galeria');
 const modal = document.querySelector('.modal');
 const modalImg = document.getElementById('modal-img');
@@ -17,14 +18,12 @@ const infoDescripcion = document.getElementById('info-descripcion');
 
 const clasesTamano = ['', '', 'span-col-2', 'span-row-2', 'span-big'];
 
-// --- BLOQUEO EXCLUSIVO DEL MENÚ CONTEXTUAL (LONG PRESS) ---
 document.addEventListener('contextmenu', function(e) {
   if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO' || e.target.closest('.modal')) {
     e.preventDefault();
   }
 }, false);
 
-// --- FUNCIONES AUXILIARES ---
 function esVideo(url, tipo) {
   if (tipo === 'video') return true;
   return /\.(mp4|webm|ogg|mov)$/i.test(url);
@@ -48,7 +47,6 @@ function formatearFecha(fechaOriginal) {
   return fechaOriginal;
 }
 
-// Algoritmo Fisher-Yates para ordenar al azar el array de fotos
 function mezclarArray(array) {
   const copia = [...array];
   for (let i = copia.length - 1; i > 0; i--) {
@@ -73,6 +71,14 @@ fetch(rutaJson)
   })
   .then(data => {
     let listaArchivos = [];
+    
+    // Asignación dinámica del título del país
+    if (data && data.pais) {
+      tituloPais.textContent = data.pais;
+    } else {
+      tituloPais.textContent = galeriaActual.replace('-', ' ');
+    }
+
     if (Array.isArray(data)) {
       listaArchivos = data;
     } else if (data && Array.isArray(data.items)) {
@@ -81,7 +87,6 @@ fetch(rutaJson)
       listaArchivos = Object.keys(data).map(k => ({ url: k, ...data[k] }));
     }
 
-    // Mezclamos aleatoriamente la lista antes de generar el DOM
     const listaAleatoria = mezclarArray(listaArchivos);
 
     listaAleatoria.forEach(item => {
@@ -147,7 +152,6 @@ fetch(rutaJson)
     contenedorGaleria.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; margin-top: 2rem;">No se pudo cargar la galería "${galeriaActual}".</p>`;
   });
 
-// --- MANEJO DEL MODAL Y EVENTOS ---
 function inicializarEventos() {
   contenedorGaleria.querySelectorAll('a').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
@@ -160,7 +164,7 @@ function inicializarEventos() {
       infoUbicacion.textContent = ubicacionLimpia;
       infoFecha.textContent = formatearFecha(anchor.dataset.fecha);
       infoTitulo.textContent = anchor.dataset.titulo;
-      
+
       const desc = anchor.dataset.descripcion;
       if (desc) {
         infoDescripcion.textContent = desc;
@@ -189,20 +193,17 @@ function inicializarEventos() {
   });
 }
 
-// Tap / Clic directo en la imagen ampliada para cerrar el modal
 modalImg.addEventListener('click', (e) => {
   e.stopPropagation();
   cerrarModal();
 });
 
-// Cerrar modal al hacer clic en el fondo oscuro
 modal.addEventListener('click', (e) => {
   if (e.target === modal || e.target.classList.contains('modal-media-wrapper')) {
     cerrarModal();
   }
 });
 
-// --- DOBLE TAP PARA CERRAR EL VIDEO ---
 let ultimoToqueVideo = 0;
 modalVideo.addEventListener('touchend', function(e) {
   const tiempoActual = new Date().getTime();
