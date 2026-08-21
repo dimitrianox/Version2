@@ -38,12 +38,23 @@ function obtenerUrlCompleta(url, carpeta) {
 
 function formatearFecha(fechaOriginal) {
   if (!fechaOriginal) return '';
+  
   const parteFecha = fechaOriginal.split(' ')[0];
   const partes = parteFecha.split(/[:\/-]/);
+  
   if (partes.length === 3) {
     const [anio, mes, dia] = partes;
-    return `${dia}/${mes}/${anio}`;
+    const fechaObj = new Date(anio, mes - 1, dia);
+    
+    if (!isNaN(fechaObj.getTime())) {
+      return fechaObj.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }); // Ejemplo: '13 may 2025'
+    }
   }
+  
   return fechaOriginal;
 }
 
