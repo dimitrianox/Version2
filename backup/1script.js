@@ -6,7 +6,6 @@ const rutaJson = `./${galeriaActual}/fotos.json`;
 const rutaCarpeta = `./${galeriaActual}/`;
 
 const tituloPais = document.getElementById('titulo-pais');
-const tituloAnio = document.getElementById('titulo-anio');
 const contenedorGaleria = document.getElementById('galeria');
 const modal = document.querySelector('.modal');
 const modalImg = document.getElementById('modal-img');
@@ -52,7 +51,7 @@ function formatearFecha(fechaOriginal) {
         day: 'numeric',
         month: 'short',
         year: 'numeric'
-      });
+      }); // Ejemplo: '13 may 2025'
     }
   }
   
@@ -70,7 +69,6 @@ function mezclarArray(array) {
 
 function cerrarModal() {
   modal.classList.remove('overlay');
-  document.body.style.overflow = ''; // RESTABLECE EL SCROLL
   modalVideo.pause();
   modalVideo.removeAttribute('src');
   modalVideo.load();
@@ -86,26 +84,11 @@ fetch(rutaJson)
   .then(data => {
     let listaArchivos = [];
     
+    // Asignación dinámica del título del país
     if (data && data.pais) {
-      const partes = data.pais.trim().split(' ');
-      if (partes.length > 1 && !isNaN(partes[partes.length - 1])) {
-        tituloAnio.textContent = partes.pop();
-        tituloPais.textContent = partes.join(' ');
-      } else {
-        tituloPais.textContent = data.pais;
-        tituloAnio.textContent = '';
-      }
+      tituloPais.textContent = data.pais;
     } else {
-      const partesCarpeta = galeriaActual.split('-');
-      const ultimoElemento = partesCarpeta[partesCarpeta.length - 1];
-
-      if (!isNaN(ultimoElemento) && partesCarpeta.length > 1) {
-        tituloAnio.textContent = partesCarpeta.pop();
-        tituloPais.textContent = partesCarpeta.join(' ');
-      } else {
-        tituloPais.textContent = galeriaActual.replace(/-/g, ' ');
-        tituloAnio.textContent = '';
-      }
+      tituloPais.textContent = galeriaActual.replace('-', ' ');
     }
 
     if (Array.isArray(data)) {
@@ -221,7 +204,6 @@ function inicializarEventos() {
       }
 
       modal.classList.add('overlay');
-      document.body.style.overflow = 'hidden'; // BLOQUEA EL SCROLL DEL FONDO
     });
   });
 }
