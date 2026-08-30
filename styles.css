@@ -44,14 +44,21 @@ body {
   background: linear-gradient(90deg, transparent, #b89146, transparent);
 }
 
+/* FLOR DE LIS - INTEGRADA CON EL TÍTULO */
 .header-icon-symbol {
-  font-size: 2.2rem; /* Aumentado de 1.4rem a 2.2rem para mayor presencia */
-  color: #f3e5ab;    /* Dorado más claro y brillante (marfil/oro brillante) */
-  margin: 0 14px;
+  font-size: 1.8rem;
+  margin: 0 12px;
   line-height: 1;
   display: inline-block;
-  font-family: "Segoe UI Symbol", "Apple Symbols", "Wingdings 2", sans-serif;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: "Segoe UI Symbol", "Apple Symbols", serif;
+  
+  /* Gradiente dorado metálico compartido */
+  background: linear-gradient(180deg, #fff2a3 0%, #d8b467 50%, #9e7a2f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Sombra idéntica al título */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
 }
 
 .footer-icon {
@@ -61,16 +68,23 @@ body {
   margin: 0 10px;
 }
 
+/* TÍTULO - INTEGRADO CON LA FLOR DE LIS */
 .country-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 8px;
   text-align: center;
-  color: #d8b467;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
   margin-right: -8px;
+  margin-top: 0.2rem;
+  
+  /* Mismo gradiente dorado metálico */
+  background: linear-gradient(180deg, #fff2a3 0%, #d8b467 50%, #9e7a2f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
 }
 
 .divider-year {
