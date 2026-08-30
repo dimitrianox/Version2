@@ -45,13 +45,13 @@ body {
 }
 
 .header-icon-symbol {
-  font-size: 1.4rem;
-  color: #d8b467;
-  margin: 0 10px;
+  font-size: 2.2rem; /* Aumentado de 1.4rem a 2.2rem para mayor presencia */
+  color: #f3e5ab;    /* Dorado más claro y brillante (marfil/oro brillante) */
+  margin: 0 14px;
   line-height: 1;
   display: inline-block;
   font-family: "Segoe UI Symbol", "Apple Symbols", "Wingdings 2", sans-serif;
-  text-shadow: 0 1px 4px rgba(216, 180, 103, 0.4);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .footer-icon {
