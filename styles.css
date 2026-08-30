@@ -44,12 +44,21 @@ body {
   background: linear-gradient(90deg, transparent, #b89146, transparent);
 }
 
-.header-icon {
-  width: 20px;
-  height: 20px;
+.header-icon-symbol {
+  font-size: 1.4rem;
   color: #d8b467;
-  margin: 0 12px;
-  filter: drop-shadow(0 1px 3px rgba(216, 180, 103, 0.3));
+  margin: 0 10px;
+  line-height: 1;
+  display: inline-block;
+  font-family: "Segoe UI Symbol", "Apple Symbols", "Wingdings 2", sans-serif;
+  text-shadow: 0 1px 4px rgba(216, 180, 103, 0.4);
+}
+
+.footer-icon {
+  width: 18px;
+  height: 18px;
+  color: #d8b467;
+  margin: 0 10px;
 }
 
 .country-title {
