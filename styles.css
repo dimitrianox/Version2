@@ -31,7 +31,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .divider-top::before,
@@ -77,7 +77,7 @@ body {
   letter-spacing: 8px;
   text-align: center;
   margin-right: -8px;
-  margin-top: 0.2rem;
+  margin-top: 0;
   
   /* Mismo gradiente dorado metálico */
   background: linear-gradient(180deg, #fff2a3 0%, #d8b467 50%, #9e7a2f 100%);
